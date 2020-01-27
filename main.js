@@ -37,7 +37,29 @@ function expect(target) {
 //
 // ONLY ADD CODE TO THIS SECTION
 
+class Dog {
+  constructor(color, hungry) {
+    this.color = 'red';
+    this.hungry = hungry;
+  }
 
+}
+class Human extends Dog {
+  constructor(cool) {
+    super(cool);
+    this.cool = cool;
+
+    if(this.cool == undefined) {
+      this.cool = false;
+    }
+  }
+pet = (dog) => {
+  dog.status = 'Happy';
+}
+feed = (dog) => {
+  dog.hungry = false;
+}
+  }
 
 
 //        __
