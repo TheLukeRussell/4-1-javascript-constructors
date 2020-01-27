@@ -8,8 +8,8 @@
 // \__,_/\__/_/_/_/\__/_/\___/____/
 
 // a simple "it" function for naming groups of expectations
-function it(description, contents){
-  console.log('\n\n"It '+ description + '"');
+function it(description, contents) {
+  console.log('\n\n"It ' + description + '"');
   contents();
 }
 
@@ -19,10 +19,10 @@ function expect(target) {
   return {
     toBe: function(expectation) {
       if (target === expectation) {
-        console.log('\n     %cPASSED', 'color:green;', 'Expected', target, 'to be', expectation );
+        console.log('\n     %cPASSED', 'color:green;', 'Expected', target, 'to be', expectation);
         return true;
       } else {
-        console.log('\n     %cFAILED', 'color:red;', 'Expected', target, 'to be', expectation );
+        console.log('\n     %cFAILED', 'color:red;', 'Expected', target, 'to be', expectation);
         return false;
       }
     }
@@ -38,28 +38,72 @@ function expect(target) {
 // ONLY ADD CODE TO THIS SECTION
 
 class Dog {
-  constructor(color, hungry) {
-    this.color = 'red';
-    this.hungry = hungry;
-  }
+  constructor(options) {
 
-}
-class Human extends Dog {
-  constructor(cool) {
-    super(cool);
-    this.cool = cool;
+    // if (options) {
+    //   options = options
+    // } else {
+    //   options = {}
+    // };
 
-    if(this.cool == undefined) {
-      this.cool = false;
+    // OR ******************
+
+    //  if (!options) {
+    //   options = {}
+    // }
+
+    // OR ******************
+
+    options = options || {};
+
+    // options is an object when it is passed in
+    // options object is not always passed in
+
+
+    // if options = options, uses object already passed through
+    // i.e
+    // let oz = new Dog({
+    //  color: "red",
+    //  hungry: false
+    // });
+
+    // if options = {}, makes the variable undefined but passes
+    // it through has an object
+    // i.e
+    // let charlie = new Dog(); -----> let charlie = new Dog({}); undefined
+
+
+
+    this.color = options.color;
+    this.hungry = options.hungry;
+    this.status = 'normal'
+
+    if (this.hungry == undefined) {
+      this.hungry = true;
     }
   }
-pet = (dog) => {
-  dog.status = 'Happy';
 }
-feed = (dog) => {
-  dog.hungry = false;
-}
+
+
+class Human {
+  constructor(cool) {
+    this.cool = cool;
+
+    if (this.cool == undefined) {
+      this.cool = false;
+    } else {
+      this.cool = true;
+    }
   }
+
+  pet(dog) {
+    dog.status = 'happy';
+  }
+  feed(dog) {
+    dog.hungry = false;
+  }
+
+}
 
 
 //        __
@@ -103,34 +147,34 @@ let faith = new Human({
 // Don't edit this section. Instead make these tests pass by writing
 // constructors in the constructor section above ;D
 
-it("should make oz happy when mady pets him", function(){
+it("should make oz happy when mady pets him", function() {
   expect(oz.status).toBe('normal');
   mady.pet(oz);
   expect(oz.status).toBe('happy');
 });
 
-it("should make oz red", function(){
+it("should make oz red", function() {
   expect(oz.color).toBe('red');
 });
 
-it("should be make Moonshine hungry and oz not hungry", function(){
+it("should be make Moonshine hungry and oz not hungry", function() {
   expect(moonshine.hungry).toBe(true);
   expect(oz.hungry).toBe(false);
 });
 
-it("should make Moonshine no longer hungry when you feed him", function(){
+it("should make Moonshine no longer hungry when you feed him", function() {
   faith.feed(moonshine);
   expect(moonshine.hungry).toBe(false);
 });
 
 
-it("should not affect charlie and Moonshine's owner properties when setting mady as oz's owner ", function(){
+it("should not affect charlie and Moonshine's owner properties when setting mady as oz's owner ", function() {
   oz.owner = mady;
   expect(moonshine.owner).toBe(undefined);
   expect(charlie.owner).toBe(undefined);
 });
 
-it("should make Faith cool and mady not cool", function(){
+it("should make Faith cool and mady not cool", function() {
   oz.owner = mady;
   expect(faith.cool).toBe(true);
   expect(mady.cool).toBe(false);
